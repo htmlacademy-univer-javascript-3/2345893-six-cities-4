@@ -1,6 +1,15 @@
 import PlaceCard from '../../components/PlaceCard';
 
-function Offer() {
+type Props = {
+  price: number;
+  name: string;
+  type: string;
+  rating: number;
+  isPremium?: boolean;
+  isFavorite?: boolean;
+}
+
+function Offer({ price, name, type, rating, isPremium = false, isFavorite = false }: Props) {
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
@@ -28,14 +37,15 @@ function Offer() {
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
+            {isPremium &&
             <div className="offer__mark">
               <span>Premium</span>
-            </div>
+            </div>}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">
-                Beautiful &amp; luxurious studio at great location
+                {name}
               </h1>
-              <button className="offer__bookmark-button button" type="button">
+              <button className={`offer__bookmark-button offer__bookmark-button${isFavorite ? '--active' : ''} button`} type="button">
                 <svg className="offer__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -44,14 +54,14 @@ function Offer() {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: '80%' }}></span>
+                <span style={{ width: `${rating * 2 * 10}%` }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="offer__rating-value rating__value">4.8</span>
+              <span className="offer__rating-value rating__value">{rating}</span>
             </div>
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">
-                Apartment
+                {type}
               </li>
               <li className="offer__feature offer__feature--bedrooms">
                 3 Bedrooms
@@ -61,7 +71,7 @@ function Offer() {
               </li>
             </ul>
             <div className="offer__price">
-              <b className="offer__price-value">&euro;120</b>
+              <b className="offer__price-value">&euro;{price}</b>
               <span className="offer__price-text">&nbsp;night</span>
             </div>
             <div className="offer__inside">
