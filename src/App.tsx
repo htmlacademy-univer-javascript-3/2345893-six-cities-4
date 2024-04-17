@@ -1,7 +1,12 @@
-import Main from './pages/Main.tsx';
+import Main from './pages/Main';
+import Header from './components/Header';
 
 function App() {
-  return <Main/>;
+  return (
+    <>
+      <Header/>
+      <Main/>
+    </>);
 }
 
 export default App;
