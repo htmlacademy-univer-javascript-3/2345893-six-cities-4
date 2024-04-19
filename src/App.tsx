@@ -9,12 +9,13 @@ import Favorites from './pages/Favorites';
 import Page404 from './pages/404';
 import Offer from './pages/Offer';
 import PrivateRoute from './components/PrivateRoute.tsx';
+import Layout from "./pages/Layout.tsx";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
+        <Route path="/" element={<Layout/>}>
           <Route index element={<Main/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/offer">
