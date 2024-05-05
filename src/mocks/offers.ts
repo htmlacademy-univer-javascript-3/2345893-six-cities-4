@@ -6,7 +6,10 @@ export const offers = [
     type: 'Apartment',
     rating: 4,
     img: 'img/apartment-01.jpg',
-    isPremium: true
+    isPremium: true,
+    lat: 52.3909553943508,
+    lng: 4.85309666406198,
+    city: 'Amsterdam'
   },
   {
     id: '1',
@@ -15,7 +18,10 @@ export const offers = [
     type: 'Room',
     rating: 4,
     img: 'img/room.jpg',
-    isFavorite: true
+    isFavorite: true,
+    lat: 52.3809553943508,
+    lng: 4.939309666406198,
+    city: 'Amsterdam'
   },
   {
     id: '2',
@@ -23,7 +29,10 @@ export const offers = [
     name: 'Canal View Prinsengracht',
     type: 'Apartment',
     rating: 4,
-    img: 'img/apartment-02.jpg'
+    img: 'img/apartment-02.jpg',
+    lat: 52.3909553943508,
+    lng: 4.929309666406198,
+    city: 'Amsterdam'
   },
   {
     id: '3',
@@ -32,7 +41,11 @@ export const offers = [
     type: 'Apartment',
     rating: 5,
     img: 'img/apartment-03.jpg',
-    isPremium: true
+    isPremium: true,
+    isFavorite: true,
+    lat: 52.3609553943508,
+    lng: 4.85309666406198,
+    city: 'Amsterdam'
   },
   {
     id: '4',
@@ -41,6 +54,9 @@ export const offers = [
     type: 'Room',
     rating: 4,
     img: 'img/room.jpg',
-    isFavorite: true
+    isFavorite: true,
+    lat: 52.3809553943508,
+    lng: 4.939309666406198,
+    city: 'Amsterdam'
   },
 ];

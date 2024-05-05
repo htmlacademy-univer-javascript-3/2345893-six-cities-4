@@ -1,12 +1,36 @@
 import EmptyPlaceholder from './components/EmptyPlaceholder';
 import OffersList from './components/OffersList.tsx';
 import { OfferType } from '../../types/offerType.ts';
+import Map from '../../components/Map.tsx';
+import { useState } from 'react';
+import { Point } from '../../types/Point.ts';
+import { CITY } from '../../mocks/city.ts';
 
 type Props = {
   offers: Array<OfferType>;
 }
 
 function Main({ offers }: Props) {
+
+  const points = offers.map((offer) => {
+    return {
+      title: offer.name,
+      lat: offer.lat,
+      lng: offer.lng
+    };
+  });
+
+  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(
+    undefined
+  );
+
+  const handleListItemHover = (title: string) => {
+    const currentPoint = points.find((point) => point.title === title);
+
+    setSelectedPoint(currentPoint);
+  };
+
+
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -68,13 +92,13 @@ function Main({ offers }: Props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.length ? <OffersList offers={offers}/>
+                {offers.length ? <OffersList offers={offers} onListItemHover={handleListItemHover}/>
                   :
                   <EmptyPlaceholder city='Amsterdam'/>}
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={CITY} points={points} selectedPoint={selectedPoint}/>
             </div>
           </div>
         </div>
