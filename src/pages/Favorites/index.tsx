@@ -1,6 +1,12 @@
 import PlaceCard from './components/PlaceCard';
+import { OfferType } from '../../types/offerType.ts';
 
-function Favorites() {
+type Props = {
+  favorites: { [city: string]: Array<OfferType> };
+}
+
+function Favorites({ favorites }: Props) {
+  const cities = Object.keys(favorites);
   return (
     <div className="page">
       <main className="page__main page__main--favorites">
@@ -8,40 +14,22 @@ function Favorites() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
+              {cities.map((city) => (
+                <li key={city} className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="#">
+                        <span>{city}</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard price={180} name="Nice, cozy, warm big bed apartment" type="Apartment" rating={5}
-                    img="img/apartment-small-03.jpg" isPremium
-                  />
-
-                  <PlaceCard price={80} name="Wood and stone place" type="Room" rating={4}
-                    img="img/room.jpg"
-                  />
-
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
-                    </a>
+                  <div className="favorites__places">
+                    {favorites[city] && favorites[city].map((offer) =>
+                      <PlaceCard key={offer.id} {...offer}/>
+                    )}
                   </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard price={180} name="White castle" type="Room" rating={5}
-                    img="img/apartment-small-04.jpg"
-                  />
-                </div>
-              </li>
+                </li>)
+              )}
             </ul>
           </section>
         </div>
