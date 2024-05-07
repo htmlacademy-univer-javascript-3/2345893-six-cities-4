@@ -39,13 +39,11 @@ function Offer({ offers }: Props) {
 
   const nearOffers = offers.slice(0, 3);
 
-  const points = nearOffers.map((offerItem) => {
-    return {
-      title: offerItem.name,
-      lat: offerItem.lat,
-      lng: offerItem.lng
-    };
-  });
+  const points = nearOffers.map((offerItem) => ({
+    title: offerItem.name,
+    lat: offerItem.lat,
+    lng: offerItem.lng
+  }));
 
   return (
     <main className="page__main page__main--offer">
