@@ -3,7 +3,7 @@ import { OfferType } from '../../types/offerType.ts';
 import CommentForm from './components/CommentForm.tsx';
 import ReviewsList from './components/Reviews/ReviewsList.tsx';
 import Map from '../../components/Map.tsx';
-import { CITY } from '../../mocks/city.ts';
+import { CITIES } from '../../mocks/cities.ts';
 import NearOffers from './components/NearOffers.tsx';
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
 function Offer({ offers }: Props) {
   const params = useParams();
   const offer = offers.find((item) => item.id === params.id);
+  const city = CITIES.find((c) => c.title === offer?.city) ?? CITIES[0];
 
   if (!offer) {
     return <Navigate to='/'/>;
@@ -179,7 +180,7 @@ function Offer({ offers }: Props) {
           </div>
         </div>
         <section style={{ maxWidth: '1144px', margin: 'auto', marginBottom: '50px' }}>
-          <Map city={CITY} points={points} selectedPoint={undefined}/>
+          <Map city={city} points={points} selectedPoint={undefined}/>
         </section>
 
       </section>
