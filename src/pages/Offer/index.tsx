@@ -1,7 +1,10 @@
 import { Navigate, useParams } from 'react-router-dom';
-import OfferCard from '../../components/OfferCard.tsx';
 import { OfferType } from '../../types/offerType.ts';
 import CommentForm from './components/CommentForm.tsx';
+import ReviewsList from './components/Reviews/ReviewsList.tsx';
+import Map from '../../components/Map.tsx';
+import { CITY } from '../../mocks/city.ts';
+import NearOffers from './components/NearOffers.tsx';
 
 type Props = {
   offers: Array<OfferType>;
@@ -23,6 +26,24 @@ function Offer({ offers }: Props) {
     isPremium = false,
     isFavorite = false
   } = offer;
+
+  const reviews = [
+    {
+      name: 'Max',
+      text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+      date: 'April 2019',
+      rating: 4,
+      avatar: 'img/avatar-max.jpg',
+    }
+  ];
+
+  const nearOffers = offers.slice(0, 3);
+
+  const points = nearOffers.map((offerItem) => ({
+    title: offerItem.name,
+    lat: offerItem.lat,
+    lng: offerItem.lng
+  }));
 
   return (
     <main className="page__main page__main--offer">
@@ -152,53 +173,18 @@ function Offer({ offers }: Props) {
               </div>
             </div>
             <section className="offer__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-              <ul className="reviews__list">
-                <li className="reviews__item">
-                  <div className="reviews__user user">
-                    <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                      <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                        alt="Reviews avatar"
-                      />
-                    </div>
-                    <span className="reviews__user-name">
-                        Max
-                    </span>
-                  </div>
-                  <div className="reviews__info">
-                    <div className="reviews__rating rating">
-                      <div className="reviews__stars rating__stars">
-                        <span style={{ width: '80%' }}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <p className="reviews__text">
-                      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                      building is green and from 18th century.
-                    </p>
-                    <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                  </div>
-                </li>
-              </ul>
+              <ReviewsList reviews={reviews}/>
               <CommentForm/>
             </section>
           </div>
         </div>
-        <section className="offer__map map"></section>
+        <section style={{ maxWidth: '1144px', margin: 'auto', marginBottom: '50px' }}>
+          <Map city={CITY} points={points} selectedPoint={undefined}/>
+        </section>
+
       </section>
       <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <OfferCard id="1" price={80} name='Wood and stone place' type='Room' rating={4} img='img/room.jpg'/>
-            <OfferCard id="2" price={132} name='Canal View Prinsengracht' type='Apartment' rating={4}
-              img='img/apartment-02.jpg'
-            />
-            <OfferCard id="3" price={180} name='Nice, cozy, warm big bed apartment' type='Apartment' rating={5}
-              img='img/apartment-03.jpg'
-            />
-          </div>
-        </section>
+        <NearOffers offers={nearOffers}/>
       </div>
     </main>
   );
