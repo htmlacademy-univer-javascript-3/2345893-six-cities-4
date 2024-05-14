@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { Point } from '../../types/Point.ts';
 import LocationTabs from './components/LocationTabs.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.tsx';
+import { sortOffersByPrice } from '../../helpers/sortOffersByPrice.ts';
+import { sortOffersByRating } from '../../helpers/sortOffersByRating.ts';
 
 type Props = {
   offers: Array<OfferType>;
@@ -16,13 +18,11 @@ function Main({ offers }: Props) {
 
   const offersByCity = offers.filter((offer) => offer.city === city.title);
 
-  const points = offersByCity.map((offer) => {
-    return {
-      title: offer.name,
-      lat: offer.lat,
-      lng: offer.lng
-    };
-  });
+  const points = offersByCity.map((offer) => ({
+    title: offer.name,
+    lat: offer.lat,
+    lng: offer.lng
+  }));
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(
     undefined
@@ -32,6 +32,24 @@ function Main({ offers }: Props) {
     const currentPoint = points.find((point) => point.title === title);
 
     setSelectedPoint(currentPoint);
+  };
+
+  const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
+  const [selectedSort, setSelectedSort] = useState<string>('Popular');
+
+  const offersByPriceToHigh = () => {
+    sortOffersByPrice(offers, true);
+    setSelectedSort('Price: low to high');
+  };
+
+  const offersByPriceToLow = () => {
+    sortOffersByPrice(offers);
+    setSelectedSort('Price: high to low');
+  };
+
+  const offersByRating = () => {
+    sortOffersByRating(offers);
+    setSelectedSort('Top rated first');
   };
 
   return (
@@ -50,17 +68,25 @@ function Main({ offers }: Props) {
                   <b className="places__found">{offersByCity.length} places to stay in {city.title}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
-                    <span className="places__sorting-type" tabIndex={0}>Popular
+                    <span className="places__sorting-type" tabIndex={0} onClick={() => setIsOpenSelect(!isOpenSelect)}>
+                      {selectedSort}
                       <svg className="places__sorting-arrow" width="7" height="4">
                         <use xlinkHref="#icon-arrow-select"></use>
                       </svg>
                     </span>
-                    <ul className="places__options places__options--custom places__options--opened">
-                      <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                      <li className="places__option" tabIndex={0}>Price: low to high</li>
-                      <li className="places__option" tabIndex={0}>Price: high to low</li>
-                      <li className="places__option" tabIndex={0}>Top rated first</li>
-                    </ul>
+                    {isOpenSelect &&
+                      <ul className="places__options places__options--custom places__options--opened">
+                        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+                        <li className="places__option" tabIndex={0} onClick={offersByPriceToHigh}>
+                          Price: low to high
+                        </li>
+                        <li className="places__option" tabIndex={0} onClick={offersByPriceToLow}>
+                          Price: high to low
+                        </li>
+                        <li className="places__option" tabIndex={0} onClick={offersByRating}>
+                          Top rated first
+                        </li>
+                      </ul>}
                   </form>
                   <div className="cities__places-list places__list tabs__content">
                     <OffersList offers={offersByCity} onListItemHover={handleListItemHover}/>
