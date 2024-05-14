@@ -18,13 +18,11 @@ function Main({ offers }: Props) {
 
   const offersByCity = offers.filter((offer) => offer.city === city.title);
 
-  const points = offersByCity.map((offer) => {
-    return {
-      title: offer.name,
-      lat: offer.lat,
-      lng: offer.lng
-    };
-  });
+  const points = offersByCity.map((offer) => ({
+    title: offer.name,
+    lat: offer.lat,
+    lng: offer.lng
+  }));
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(
     undefined
@@ -88,8 +86,7 @@ function Main({ offers }: Props) {
                         <li className="places__option" tabIndex={0} onClick={offersByRating}>
                           Top rated first
                         </li>
-                      </ul>
-                    }
+                      </ul>}
                   </form>
                   <div className="cities__places-list places__list tabs__content">
                     <OffersList offers={offersByCity} onListItemHover={handleListItemHover}/>
