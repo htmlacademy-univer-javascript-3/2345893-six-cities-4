@@ -1,4 +1,4 @@
-export const places = [
+export const offers = [
   {
     id: '0',
     price: 120,

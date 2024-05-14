@@ -1,10 +1,15 @@
 import { Navigate, useParams } from 'react-router-dom';
-import PlaceCard from '../../components/PlaceCard';
-import { places } from '../../constants/places.ts';
+import OfferCard from '../../components/OfferCard.tsx';
+import { OfferType } from '../../types/offerType.ts';
+import CommentForm from './components/CommentForm.tsx';
 
-function Offer() {
+type Props = {
+  offers: Array<OfferType>;
+}
+
+function Offer({ offers }: Props) {
   const params = useParams();
-  const offer = places.find((place) => place.id === params.id);
+  const offer = offers.find((item) => item.id === params.id);
 
   if (!offer) {
     return <Navigate to='/'/>;
@@ -125,7 +130,7 @@ function Offer() {
               <div className="offer__host-user user">
                 <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                   <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74"
-                       alt="Host avatar"
+                    alt="Host avatar"
                   />
                 </div>
                 <span className="offer__user-name">
@@ -153,7 +158,7 @@ function Offer() {
                   <div className="reviews__user user">
                     <div className="reviews__avatar-wrapper user__avatar-wrapper">
                       <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                           alt="Reviews avatar"
+                        alt="Reviews avatar"
                       />
                     </div>
                     <span className="reviews__user-name">
@@ -175,67 +180,7 @@ function Offer() {
                   </div>
                 </li>
               </ul>
-              <form className="reviews__form form" action="#" method="post">
-                <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                <div className="reviews__rating-form form__rating">
-                  <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars"
-                         type="radio"
-                  />
-                  <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars"
-                         type="radio"
-                  />
-                  <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars"
-                         type="radio"
-                  />
-                  <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars"
-                         type="radio"
-                  />
-                  <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star"
-                         type="radio"
-                  />
-                  <label htmlFor="1-star" className="reviews__rating-label form__rating-label"
-                         title="terribly"
-                  >
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-                </div>
-                <textarea className="reviews__textarea form__textarea" id="review" name="review"
-                          placeholder="Tell how was your stay, what you like and what can be improved"
-                />
-                <div className="reviews__button-wrapper">
-                  <p className="reviews__help">
-                    To submit review please make sure to set <span className="reviews__star">rating</span> and describe
-                    your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                  </p>
-                  <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-                </div>
-              </form>
+              <CommentForm/>
             </section>
           </div>
         </div>
@@ -245,12 +190,12 @@ function Offer() {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <PlaceCard price={80} name='Wood and stone place' type='Room' rating={4} img='img/room.jpg'/>
-            <PlaceCard price={132} name='Canal View Prinsengracht' type='Apartment' rating={4}
-                       img='img/apartment-02.jpg'
+            <OfferCard id="1" price={80} name='Wood and stone place' type='Room' rating={4} img='img/room.jpg'/>
+            <OfferCard id="2" price={132} name='Canal View Prinsengracht' type='Apartment' rating={4}
+              img='img/apartment-02.jpg'
             />
-            <PlaceCard price={180} name='Nice, cozy, warm big bed apartment' type='Apartment' rating={5}
-                       img='img/apartment-03.jpg'
+            <OfferCard id="3" price={180} name='Nice, cozy, warm big bed apartment' type='Apartment' rating={5}
+              img='img/apartment-03.jpg'
             />
           </div>
         </section>

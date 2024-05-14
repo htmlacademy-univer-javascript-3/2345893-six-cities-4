@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 type Props = {
   isLoggedIn: boolean;
 }
@@ -8,9 +10,9 @@ function Header({ isLoggedIn }: Props) {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link" href="main.html">
+            <NavLink to='/' className="header__logo-link">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-            </a>
+            </NavLink>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">

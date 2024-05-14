@@ -1,8 +1,12 @@
-import PlaceCard from '../../components/PlaceCard';
 import EmptyPlaceholder from './components/EmptyPlaceholder';
-import { places } from '../../constants/places.ts';
+import OffersList from './components/OffersList.tsx';
+import { OfferType } from '../../types/offerType.ts';
 
-function Main() {
+type Props = {
+  offers: Array<OfferType>;
+}
+
+function Main({ offers }: Props) {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -64,10 +68,7 @@ function Main() {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {places.length ?
-                  places.map((place) =>
-                    <PlaceCard key={place.name} {...place}/>
-                  )
+                {offers.length ? <OffersList offers={offers}/>
                   :
                   <EmptyPlaceholder city='Amsterdam'/>}
               </div>
