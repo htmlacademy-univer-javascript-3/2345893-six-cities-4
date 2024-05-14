@@ -7,4 +7,7 @@ export type OfferType = {
   img: string;
   isPremium?: boolean;
   isFavorite?: boolean;
+  lat: number;
+  lng: number;
+  city: string;
 }

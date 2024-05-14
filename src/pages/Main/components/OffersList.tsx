@@ -3,16 +3,19 @@ import { OfferType } from '../../../types/offerType.ts';
 
 type Props = {
   offers: Array<OfferType>;
+  onListItemHover: (title: string) => void;
 }
 
-function OffersList({ offers }: Props) {
+function OffersList({ offers, onListItemHover }: Props) {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <ul className="cities__places-list places__list tabs__content">
       {offers.length &&
-        offers.map((offer) =>
-          <OfferCard key={offer.id} {...offer}/>
+        offers.map((offer) => (
+          <li key={offer.id} onMouseEnter={() => onListItemHover(offer.name)}>
+            <OfferCard {...offer}/>
+          </li>)
         )}
-    </div>
+    </ul>
   );
 }
 
