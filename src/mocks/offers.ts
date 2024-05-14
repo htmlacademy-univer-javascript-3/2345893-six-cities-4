@@ -59,4 +59,16 @@ export const offers = [
     lng: 4.939309666406198,
     city: 'Amsterdam'
   },
+  {
+    id: '5',
+    price: 80,
+    name: 'Wood and stone place',
+    type: 'Room',
+    rating: 4,
+    img: 'img/room.jpg',
+    isFavorite: true,
+    lat: 48.856663,
+    lng: 2.3515568,
+    city: 'Paris'
+  },
 ];
