@@ -60,7 +60,7 @@ function Main() {
         <div className="cities">
           <div className="cities__places-container container">
             {isLoading && <Loader/>}
-            {offersByCity.length && !isLoading &&
+            {!!offersByCity.length && !isLoading &&
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>

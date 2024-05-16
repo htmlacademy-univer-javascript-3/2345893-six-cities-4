@@ -1,3 +1,5 @@
 export enum APIRoute {
-  Offers = '/six-cities/offers',
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
 }
