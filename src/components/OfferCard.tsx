@@ -1,17 +1,7 @@
 import { Link } from 'react-router-dom';
+import { OfferType } from '../types/offerType.ts';
 
-type Props = {
-  id: string;
-  price: number;
-  name: string;
-  type: string;
-  rating: number;
-  img: string;
-  isPremium?: boolean;
-  isFavorite?: boolean;
-}
-
-function OfferCard({ id, price, name, type, rating, img, isPremium = false, isFavorite = false }: Props) {
+function OfferCard({ id, price, title, type, rating, previewImage, isPremium = false, isFavorite = false }: OfferType) {
   return (
     <article className="cities__card place-card">
       {isPremium &&
@@ -20,7 +10,7 @@ function OfferCard({ id, price, name, type, rating, img, isPremium = false, isFa
         </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`} reloadDocument>
-          <img className="place-card__image" src={img} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -43,7 +33,7 @@ function OfferCard({ id, price, name, type, rating, img, isPremium = false, isFa
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{name}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

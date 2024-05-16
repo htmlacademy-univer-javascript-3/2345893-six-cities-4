@@ -1,12 +1,14 @@
 import PlaceCard from './components/PlaceCard';
-import { OfferType } from '../../types/offerType.ts';
+import { useAppSelector } from '../../hooks/useAppSelector.tsx';
+import { groupBy } from '../../helpers/groupBy.ts';
+import { Link } from 'react-router-dom';
 
-type Props = {
-  favorites: { [city: string]: Array<OfferType> };
-}
+function Favorites() {
+  const offers = useAppSelector((state) => state.offers);
+  const favorites = groupBy(offers.filter((offer) => !offer.isFavorite), (offer) => offer.city.name);
 
-function Favorites({ favorites }: Props) {
   const cities = Object.keys(favorites);
+
   return (
     <div className="page">
       <main className="page__main page__main--favorites">
@@ -35,9 +37,9 @@ function Favorites({ favorites }: Props) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link to='/' className="footer__logo-link">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>);
 }

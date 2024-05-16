@@ -1,6 +1,5 @@
 import EmptyPlaceholder from './components/EmptyPlaceholder';
 import OffersList from './components/OffersList.tsx';
-import { OfferType } from '../../types/offerType.ts';
 import Map from '../../components/Map.tsx';
 import { useState } from 'react';
 import { Point } from '../../types/Point.ts';
@@ -8,20 +7,19 @@ import LocationTabs from './components/LocationTabs.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.tsx';
 import { sortOffersByPrice } from '../../helpers/sortOffersByPrice.ts';
 import { sortOffersByRating } from '../../helpers/sortOffersByRating.ts';
+import Loader from '../../components/Loader.tsx';
 
-type Props = {
-  offers: Array<OfferType>;
-}
-
-function Main({ offers }: Props) {
+function Main() {
   const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const isLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  const offersByCity = offers.filter((offer) => offer.city === city.title);
+  const offersByCity = offers.filter((offer) => offer.city.name === city.title);
 
   const points = offersByCity.map((offer) => ({
-    title: offer.name,
-    lat: offer.lat,
-    lng: offer.lng
+    title: offer.title,
+    lat: offer.location.latitude,
+    lng: offer.location.longitude
   }));
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(
@@ -61,7 +59,8 @@ function Main({ offers }: Props) {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            {offersByCity.length ?
+            {isLoading && <Loader/>}
+            {offersByCity.length && !isLoading &&
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
@@ -95,7 +94,8 @@ function Main({ offers }: Props) {
                 <div className="cities__right-section">
                   <Map city={city} points={points} selectedPoint={selectedPoint}/>
                 </div>
-              </> :
+              </>}
+            {!offersByCity.length && !isLoading &&
               <EmptyPlaceholder city={city.title}/>}
           </div>
         </div>

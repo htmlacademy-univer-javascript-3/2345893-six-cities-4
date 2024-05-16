@@ -11,7 +11,7 @@ function OffersList({ offers, onListItemHover }: Props) {
     <ul className="cities__places-list places__list tabs__content">
       {offers.length &&
         offers.map((offer) => (
-          <li key={offer.id} onMouseEnter={() => onListItemHover(offer.name)}>
+          <li key={offer.id} onMouseEnter={() => onListItemHover(offer.title)}>
             <OfferCard {...offer}/>
           </li>)
         )}
