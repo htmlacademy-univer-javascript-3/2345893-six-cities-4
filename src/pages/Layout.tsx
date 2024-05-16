@@ -4,7 +4,7 @@ import Header from '../components/Header.tsx';
 function Layout() {
   return (
     <>
-      <Header isLoggedIn={false}/>
+      <Header/>
       <main>
         <Outlet/>
       </main>

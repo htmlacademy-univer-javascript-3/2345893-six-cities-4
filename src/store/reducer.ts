@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { loadOffers, setAuthorizationStatus, setCity, setOffersDataLoadingStatus } from './action';
 import type { City } from '../types/City.ts';
 import { OfferType } from '../types/offerType.ts';
+import { AuthorizationStatus } from '../const.ts';
 
 const initialCity = {
   title: 'Paris',
@@ -14,14 +15,14 @@ type InitialState = {
   city: City;
   offers: Array<OfferType>;
   isOffersDataLoading: boolean;
-  authorizationStatus: boolean;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: InitialState = {
   city: initialCity,
   offers: [],
   isOffersDataLoading: false,
-  authorizationStatus: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
