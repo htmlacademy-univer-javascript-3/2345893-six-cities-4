@@ -10,26 +10,20 @@ import Page404 from './pages/404';
 import Offer from './pages/Offer';
 import PrivateRoute from './components/PrivateRoute.tsx';
 import Layout from './pages/Layout.tsx';
-import { OfferType } from './types/offerType';
 
-type Props = {
-  offers: Array<OfferType>;
-  favorites: {[city: string]: Array<OfferType>};
-}
-
-function App({ offers, favorites }: Props) {
+function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<Main offers={offers}/>}/>
+          <Route index element={<Main/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/offer">
-            <Route path=":id" element={<Offer offers={offers}/>}/>
+            <Route path=":id" element={<Offer/>}/>
           </Route>
           <Route path="/favorites" element={
             <PrivateRoute>
-              <Favorites favorites={favorites}/>
+              <Favorites/>
             </PrivateRoute>
           }
           />
