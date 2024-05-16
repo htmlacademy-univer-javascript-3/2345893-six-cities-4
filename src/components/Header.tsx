@@ -1,10 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useAppSelector } from '../hooks/useAppSelector.tsx';
+import { AuthorizationStatus } from '../const.ts';
+import { useAppDispatch } from '../hooks/useAppDispatch.ts';
+import { logoutAction } from '../store/apiActions.ts';
 
-type Props = {
-  isLoggedIn: boolean;
-}
+function Header() {
+  const isLoggedIn = useAppSelector((state) => state.authorizationStatus);
 
-function Header({ isLoggedIn }: Props) {
+  const dispatch = useAppDispatch();
+
+  const logout = () => {
+    dispatch(logoutAction());
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -16,7 +24,7 @@ function Header({ isLoggedIn }: Props) {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              {isLoggedIn ?
+              {isLoggedIn === AuthorizationStatus.Auth ?
                 <>
                   <li className="header__nav-item user">
                     <a className="header__nav-link header__nav-link--profile" href="#">
@@ -27,18 +35,20 @@ function Header({ isLoggedIn }: Props) {
                     </a>
                   </li>
                   <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
+                    <button className="header__nav-link" onClick={logout}
+                      style={{ backgroundColor: 'unset', border: 'unset', cursor: 'pointer' }}
+                    >
                       <span className="header__signout">Sign out</span>
-                    </a>
+                    </button>
                   </li>
                 </>
                 :
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link to={'/login'} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__login">Sign in</span>
-                  </a>
+                  </Link>
                 </li>}
             </ul>
           </nav>

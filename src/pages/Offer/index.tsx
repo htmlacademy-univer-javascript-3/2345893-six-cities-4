@@ -32,8 +32,8 @@ function Offer() {
 
   const points = nearOffers.map((offerItem) => ({
     title: offerItem.title,
-    lat: offerItem.lat,
-    lng: offerItem.lng
+    lat: offerItem.location.latitude,
+    lng: offerItem.location.longitude
   }));
 
   return (
