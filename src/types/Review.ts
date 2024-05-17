@@ -1,7 +1,19 @@
 export type Review = {
-  name: string;
-  text: string;
+  id: string;
   date: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
   rating: number;
-  avatar: string;
+}
+
+export type Reviews = Array<Review>;
+
+export type ReviewSend = {
+  id: string;
+  comment: string;
+  rating: number;
 }

@@ -1,8 +1,8 @@
 import OfferCard from '../../../components/OfferCard.tsx';
-import { OfferType } from '../../../types/offerType.ts';
+import { OffersType } from '../../../types/OffersType.ts';
 
 type Props = {
-  offers: Array<OfferType>;
+  offers: OffersType;
 }
 const NearOffers = ({ offers }: Props) => (
   <section className="near-places places">
