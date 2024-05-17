@@ -7,6 +7,7 @@ import { Reviews } from "../types/Review.ts";
 
 const Action = {
   SET_CITY: 'SET_CITY',
+  SET_CITIES: 'SET_CITIES',
   LOAD_OFFERS: 'LOAD_OFFERS',
   SET_OFFERS_LOADING_STATUS: 'SET_OFFERS_LOADING_STATUS',
   SET_AUTHORIZATION_STATUS: 'SET_AUTHORIZATION_STATUS',
@@ -21,6 +22,8 @@ const Action = {
 
 export const setCity = createAction(Action.SET_CITY, (value: City) =>
   ({ payload: value }));
+
+export const setCities = createAction<Array<City>>(Action.SET_CITIES);
 
 export const loadOffers = createAction<OffersType>(Action.LOAD_OFFERS);
 

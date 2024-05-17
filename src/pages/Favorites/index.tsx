@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Favorites() {
   const offers = useAppSelector((state) => state.offers);
-  const favorites = groupBy(offers.filter((offer) => !offer.isFavorite), (offer) => offer.city.name);
+  const favorites = groupBy(offers.filter((offer) => offer.isFavorite), (offer) => offer.city.name);
 
   const cities = Object.keys(favorites);
 
