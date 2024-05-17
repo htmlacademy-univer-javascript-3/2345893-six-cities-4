@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OfferType } from '../../../types/offerType.ts';
+import { OfferType } from '../../../types/OffersType.ts';
 
 function PlaceCard({ id, price, title, type, rating, previewImage, isPremium = false }: OfferType) {
   return (

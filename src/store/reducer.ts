@@ -1,8 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadOffers, setAuthorizationStatus, setCity, setOffersDataLoadingStatus } from './action';
+import {
+  loadOfferInfo,
+  loadOffers, loadOffersNearby,
+  setAuthorizationStatus,
+  setCity,
+  setOfferInfoLoadingStatus,
+  setOffersDataLoadingStatus, setOffersNearbyLoadingStatus, setReviews, setReviewsLoading
+} from './action';
 import type { City } from '../types/City.ts';
-import { OfferType } from '../types/offerType.ts';
+import { OffersType } from '../types/OffersType.ts';
 import { AuthorizationStatus } from '../const.ts';
+import { OfferInfoType } from '../types/OfferInfoType.ts';
+import { Reviews } from "../types/Review.ts";
 
 const initialCity = {
   title: 'Paris',
@@ -12,17 +21,39 @@ const initialCity = {
 };
 
 type InitialState = {
-  city: City;
-  offers: Array<OfferType>;
-  isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
+
+  city: City;
+
+  offers: OffersType;
+  isOffersDataLoading: boolean;
+
+  selectedOffer: OfferInfoType | undefined;
+  isLoadingOfferInfo: boolean;
+
+  offersNearby: OffersType;
+  isLoadingOffersNearby: boolean;
+
+  reviews: Reviews;
+  reviewsLoading: boolean;
 }
 
 const initialState: InitialState = {
+  authorizationStatus: AuthorizationStatus.Unknown,
+
   city: initialCity,
+
   offers: [],
   isOffersDataLoading: false,
-  authorizationStatus: AuthorizationStatus.Unknown,
+
+  selectedOffer: undefined,
+  isLoadingOfferInfo: false,
+
+  offersNearby: [],
+  isLoadingOffersNearby: false,
+
+  reviews: [],
+  reviewsLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -34,10 +65,31 @@ const reducer = createReducer(initialState, (builder) => {
       state.isOffersDataLoading = action.payload;
     })
     .addCase(loadOffers, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       state.offers = action.payload;
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(loadOfferInfo, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      state.selectedOffer = action.payload;
+    })
+    .addCase(setOfferInfoLoadingStatus, (state, action) => {
+      state.isLoadingOfferInfo = action.payload;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      state.offersNearby = action.payload;
+    })
+    .addCase(setOffersNearbyLoadingStatus, (state, action) => {
+      state.isLoadingOffersNearby = action.payload;
+    })
+    .addCase(setReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(setReviewsLoading, (state, action) => {
+      state.reviewsLoading = action.payload;
     });
 });
 

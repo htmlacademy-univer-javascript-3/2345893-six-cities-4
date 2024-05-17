@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OfferType } from '../types/offerType.ts';
+import { OfferType } from '../types/OffersType.ts';
 
 function OfferCard({ id, price, title, type, rating, previewImage, isPremium = false, isFavorite = false }: OfferType) {
   return (
