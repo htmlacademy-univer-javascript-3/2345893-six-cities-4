@@ -145,3 +145,14 @@ export const sendReview = createAsyncThunk<void, ReviewSend, {
     await api.post<ReviewSend>(`${APIRoute.Reviews}/${id}`, { comment, rating });
   },
 );
+
+export const changeIsFavorite = createAsyncThunk<void, { id: string, status: 0 | 1 }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/changeIsFavorite',
+  async ({ id, status }, { extra: api }) => {
+    await api.post(`${APIRoute.Favorite}/${id}/${status}`);
+  },
+);

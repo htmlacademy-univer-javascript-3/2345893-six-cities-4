@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CommentForm from './components/CommentForm.tsx';
 import ReviewsList from './components/Reviews/ReviewsList.tsx';
 import NearOffers from './components/NearOffers.tsx';
@@ -6,8 +6,8 @@ import { useAppSelector } from '../../hooks/useAppSelector.tsx';
 import Loader from '../../components/Loader.tsx';
 import Page404 from '../404';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
-import { fetchOfferInfoAction, fetchOffersNearby, fetchReviews } from '../../store/apiActions.ts';
-import { useEffect } from 'react';
+import { changeIsFavorite, fetchOfferInfoAction, fetchOffersNearby, fetchReviews } from '../../store/apiActions.ts';
+import { useEffect, useState } from 'react';
 import { City } from '../../types/City.ts';
 import Map from '../../components/Map.tsx';
 import { AuthorizationStatus } from '../../const.ts';
@@ -46,10 +46,23 @@ function Offer() {
   }
 
   const points = nearOffers.map((offerItem) => ({
+    id: offerItem.id,
     title: offerItem.title,
     lat: offerItem.location.latitude,
     lng: offerItem.location.longitude
   }));
+
+  const navigate = useNavigate();
+
+  const [favorite, setFavorite] = useState(offer?.isFavorite)
+
+  const onClickFavorite = () => {
+    if (hasAccess !== AuthorizationStatus.Auth) {
+      navigate('/login');
+    }
+    dispatch(changeIsFavorite({ id: offer?.id ?? '', status: !favorite ? 1 : 0 }));
+    setFavorite(!favorite);
+  }
 
   return (
     <main className="page__main page__main--offer">
@@ -78,8 +91,9 @@ function Offer() {
                     {offer.title}
                   </h1>
                   <button
-                    className={`offer__bookmark-button offer__bookmark-button${offer.isFavorite ? '--active' : ''} button`}
+                    className={`offer__bookmark-button offer__bookmark-button${favorite ? '--active' : ''} button`}
                     type="button"
+                    onClick={onClickFavorite}
                   >
                     <svg className="offer__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>

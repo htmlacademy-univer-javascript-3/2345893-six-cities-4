@@ -1,7 +1,28 @@
 import { Link } from 'react-router-dom';
 import { OfferType } from '../types/OffersType.ts';
+import { useAppDispatch } from "../hooks/useAppDispatch.ts";
+import { changeIsFavorite } from "../store/apiActions.ts";
+import { useAppSelector } from "../hooks/useAppSelector.tsx";
+import { AuthorizationStatus } from "../const.ts";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function OfferCard({ id, price, title, type, rating, previewImage, isPremium = false, isFavorite = false }: OfferType) {
+  const hasAccess = useAppSelector((state) => state.authorizationStatus);
+  const navigate = useNavigate();
+
+  const [favorite, setFavorite] = useState(isFavorite)
+
+  const dispatch = useAppDispatch();
+
+  const onClickFavorite = () => {
+    if (hasAccess !== AuthorizationStatus.Auth) {
+      navigate('/login');
+    }
+    dispatch(changeIsFavorite({ id, status: !favorite ? 1 : 0 }));
+    setFavorite(!favorite);
+  }
+
   return (
     <article className="cities__card place-card">
       {isPremium &&
@@ -19,7 +40,10 @@ function OfferCard({ id, price, title, type, rating, previewImage, isPremium = f
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button place-card__bookmark-button${isFavorite ? '--active' : ''} button`} type="button">
+          <button
+            className={`place-card__bookmark-button place-card__bookmark-button${favorite ? '--active' : ''} button`}
+            type="button"
+            onClick={onClickFavorite}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
