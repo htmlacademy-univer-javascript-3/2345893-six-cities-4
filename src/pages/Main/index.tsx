@@ -1,7 +1,7 @@
 import EmptyPlaceholder from './components/EmptyPlaceholder';
 import OffersList from './components/OffersList.tsx';
 import Map from '../../components/Map.tsx';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Point } from '../../types/Point.ts';
 import LocationTabs from './components/LocationTabs.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.tsx';
@@ -14,9 +14,11 @@ function Main() {
   const offers = useAppSelector((state) => state.offers);
   const isLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  const offersByCity = offers.filter((offer) => offer.city.name === city.title);
+  const offersByCity = React.useMemo(() => offers.filter((offer) => offer.city.name === city.title),
+    [city.title, offers]);
 
   const points = offersByCity.map((offer) => ({
+    id: offer.id,
     title: offer.title,
     lat: offer.location.latitude,
     lng: offer.location.longitude
@@ -26,8 +28,8 @@ function Main() {
     undefined
   );
 
-  const handleListItemHover = (title: string) => {
-    const currentPoint = points.find((point) => point.title === title);
+  const handleListItemHover = (id: string) => {
+    const currentPoint = points.find((point) => point.id === id);
 
     setSelectedPoint(currentPoint);
   };
@@ -36,17 +38,17 @@ function Main() {
   const [selectedSort, setSelectedSort] = useState<string>('Popular');
 
   const offersByPriceToHigh = () => {
-    sortOffersByPrice(offers, true);
+    sortOffersByPrice(offersByCity, true);
     setSelectedSort('Price: low to high');
   };
 
   const offersByPriceToLow = () => {
-    sortOffersByPrice(offers);
+    sortOffersByPrice(offersByCity);
     setSelectedSort('Price: high to low');
   };
 
   const offersByRating = () => {
-    sortOffersByRating(offers);
+    sortOffersByRating(offersByCity);
     setSelectedSort('Top rated first');
   };
 

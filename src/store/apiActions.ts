@@ -7,7 +7,7 @@ import {
   setAuthorizationStatus,
   setOffersDataLoadingStatus,
   setOfferInfoLoadingStatus,
-  loadOfferInfo, loadOffersNearby, setOffersNearbyLoadingStatus, setReviewsLoading, setReviews
+  loadOfferInfo, loadOffersNearby, setOffersNearbyLoadingStatus, setReviewsLoading, setReviews, setCities
 } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { OffersType } from '../types/OffersType.ts';
@@ -15,7 +15,7 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/AuthData';
 import { UserData } from '../types/UserData';
 import { OfferInfoType } from '../types/OfferInfoType.ts';
-import { Reviews, ReviewSend } from "../types/Review.ts";
+import { Reviews, ReviewSend } from '../types/Review.ts';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -28,6 +28,13 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     const { data } = await api.get<OffersType>(APIRoute.Offers);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadOffers(data));
+
+    const cities = data.map(({ city }) => (
+      { title: city.name, lat: city.location.latitude, lng: city.location.longitude, zoom: city.location.zoom }));
+
+    const unique = cities.filter((obj, idx, arr) =>
+      idx === arr.findIndex((t) => t.title === obj.title));
+    dispatch(setCities(unique));
   },
 );
 
@@ -134,7 +141,7 @@ export const sendReview = createAsyncThunk<void, ReviewSend, {
   extra: AxiosInstance;
 }>(
   'data/fetchReviews',
-  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+  async ({ id, comment, rating }, { extra: api }) => {
     await api.post<ReviewSend>(`${APIRoute.Reviews}/${id}`, { comment, rating });
   },
 );

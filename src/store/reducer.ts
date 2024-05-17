@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   loadOfferInfo,
   loadOffers, loadOffersNearby,
-  setAuthorizationStatus,
+  setAuthorizationStatus, setCities,
   setCity,
   setOfferInfoLoadingStatus,
   setOffersDataLoadingStatus, setOffersNearbyLoadingStatus, setReviews, setReviewsLoading
@@ -11,19 +11,20 @@ import type { City } from '../types/City.ts';
 import { OffersType } from '../types/OffersType.ts';
 import { AuthorizationStatus } from '../const.ts';
 import { OfferInfoType } from '../types/OfferInfoType.ts';
-import { Reviews } from "../types/Review.ts";
+import { Reviews } from '../types/Review.ts';
 
 const initialCity = {
   title: 'Paris',
   lat: 48.856663,
   lng: 2.3515568,
-  zoom: 10
+  zoom: 13
 };
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
 
   city: City;
+  cities: Array<City>;
 
   offers: OffersType;
   isOffersDataLoading: boolean;
@@ -42,6 +43,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
 
   city: initialCity,
+  cities: [],
 
   offers: [],
   isOffersDataLoading: false,
@@ -90,6 +92,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviewsLoading, (state, action) => {
       state.reviewsLoading = action.payload;
+    })
+    .addCase(setCities, (state, action) => {
+      state.cities = action.payload;
     });
 });
 

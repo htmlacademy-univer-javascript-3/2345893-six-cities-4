@@ -4,6 +4,7 @@ import useMap from '../hooks/useMap.tsx';
 import 'leaflet/dist/leaflet.css';
 import { City } from '../types/City.ts';
 import { Point, Points } from '../types/Point.ts';
+import { useAppSelector } from "../hooks/useAppSelector.tsx";
 
 const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
@@ -29,9 +30,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map(props: MapProps): JSX.Element {
-  const {city, points, selectedPoint} = props;
-
+function Map({city, points, selectedPoint}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -46,7 +45,7 @@ function Map(props: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            selectedPoint !== undefined && point.id === selectedPoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
