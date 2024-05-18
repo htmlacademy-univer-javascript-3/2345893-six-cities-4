@@ -4,7 +4,6 @@ import useMap from '../hooks/useMap.tsx';
 import 'leaflet/dist/leaflet.css';
 import { City } from '../types/City.ts';
 import { Point, Points } from '../types/Point.ts';
-import { useAppSelector } from "../hooks/useAppSelector.tsx";
 
 const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';

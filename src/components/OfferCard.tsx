@@ -3,21 +3,21 @@ import { OfferType } from '../types/OffersType.ts';
 import { useAppDispatch } from "../hooks/useAppDispatch.ts";
 import { changeIsFavorite } from "../store/apiActions.ts";
 import { useAppSelector } from "../hooks/useAppSelector.tsx";
-import { AuthorizationStatus } from "../const.ts";
-import { useNavigate } from "react-router-dom";
+import { AppRoute, AuthorizationStatus } from "../const.ts";
 import { useState } from "react";
+import { redirectToRoute } from "../store/action.ts";
+import { getAuthorizationStatus } from "../store/userProcess/selectors.ts";
 
 function OfferCard({ id, price, title, type, rating, previewImage, isPremium = false, isFavorite = false }: OfferType) {
-  const hasAccess = useAppSelector((state) => state.authorizationStatus);
-  const navigate = useNavigate();
+  const hasAccess = useAppSelector(getAuthorizationStatus);
 
-  const [favorite, setFavorite] = useState(isFavorite)
+  const [favorite, setFavorite] = useState(isFavorite);
 
   const dispatch = useAppDispatch();
 
   const onClickFavorite = () => {
-    if (hasAccess !== AuthorizationStatus.Auth) {
-      navigate('/login');
+    if (hasAccess === AuthorizationStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.Login))
     }
     dispatch(changeIsFavorite({ id, status: !favorite ? 1 : 0 }));
     setFavorite(!favorite);

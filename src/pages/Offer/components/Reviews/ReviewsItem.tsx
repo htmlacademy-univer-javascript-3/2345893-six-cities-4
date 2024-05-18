@@ -3,7 +3,6 @@ import { Review } from '../../../../types/Review.ts';
 type Props = {
   review: Review;
 }
-
 const ReviewsItem = ({ review }: Props) => (
   <li className="reviews__item">
     <div className="reviews__user user">
