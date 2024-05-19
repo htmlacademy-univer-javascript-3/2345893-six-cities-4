@@ -9,6 +9,7 @@ type Reducer = ReturnType<typeof rootReducer>;
 export const redirect: Middleware<unknown, Reducer> =
   () =>
     (next) =>
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       (action: PayloadAction<string>) => {
         if (action.type === Action.REDIRECT_TO_ROUTE) {
