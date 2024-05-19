@@ -2,7 +2,7 @@ import { makeFakeReviews } from '../../utils/mocks';
 import { fetchReviews } from '../apiActions';
 import { reviewsProcess } from './reviewsProcess';
 
-describe('GameData Slice', () => {
+describe('ReviewsProcess Slice', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };
     const expectedState = {

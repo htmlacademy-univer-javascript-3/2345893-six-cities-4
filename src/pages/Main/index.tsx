@@ -9,7 +9,7 @@ import { sortOffersByPrice } from '../../helpers/sortOffersByPrice.ts';
 import { sortOffersByRating } from '../../helpers/sortOffersByRating.ts';
 import Loader from '../../components/Loader.tsx';
 import { getOffers, getOffersIsLoading } from "../../store/offersProcess/selectors.ts";
-import { getCurCity } from "../../store/citiesProcess/selectors.ts";
+import { getCurCity } from '../../store/citiesProcess/selectors.ts';
 
 function Main() {
   const city = useAppSelector(getCurCity);
