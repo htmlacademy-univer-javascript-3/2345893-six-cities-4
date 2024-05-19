@@ -1,7 +1,7 @@
-import { FormEvent, useRef } from "react";
-import { useAppDispatch } from "../../hooks/useAppDispatch.ts";
-import { useNavigate } from "react-router-dom";
-import { loginAction } from "../../store/apiActions.ts";
+import { FormEvent, useRef } from 'react';
+import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
+import { useNavigate } from 'react-router-dom';
+import { loginAction } from '../../store/apiActions.ts';
 
 function Login() {
   const emailRef = useRef<HTMLInputElement | null>(null);

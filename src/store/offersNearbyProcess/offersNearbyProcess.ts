@@ -22,7 +22,7 @@ export const offersNearbyProcess = createSlice({
         state.offers = action.payload ?? [];
         state.loading = false;
 
-        console.log(action.payload)
+        console.log(action.payload);
       })
       .addCase(fetchOffersNearby.rejected, (state) => {
         state.offers = [];

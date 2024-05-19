@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { OfferType } from '../types/OffersType.ts';
-import { useAppDispatch } from "../hooks/useAppDispatch.ts";
-import { changeIsFavorite } from "../store/apiActions.ts";
-import { useAppSelector } from "../hooks/useAppSelector.tsx";
-import { AppRoute, AuthorizationStatus } from "../const.ts";
-import { useState } from "react";
-import { redirectToRoute } from "../store/action.ts";
-import { getAuthorizationStatus } from "../store/userProcess/selectors.ts";
+import { useAppDispatch } from '../hooks/useAppDispatch.ts';
+import { changeIsFavorite } from '../store/apiActions.ts';
+import { useAppSelector } from '../hooks/useAppSelector.tsx';
+import { AppRoute, AuthorizationStatus } from '../const.ts';
+import { useState } from 'react';
+import { redirectToRoute } from '../store/action.ts';
+import { getAuthorizationStatus } from '../store/userProcess/selectors.ts';
 
 function OfferCard({ id, price, title, type, rating, previewImage, isPremium = false, isFavorite = false }: OfferType) {
   const hasAccess = useAppSelector(getAuthorizationStatus);
@@ -17,11 +17,11 @@ function OfferCard({ id, price, title, type, rating, previewImage, isPremium = f
 
   const onClickFavorite = () => {
     if (hasAccess === AuthorizationStatus.Auth) {
-      dispatch(redirectToRoute(AppRoute.Login))
+      dispatch(redirectToRoute(AppRoute.Login));
     }
     dispatch(changeIsFavorite({ id, status: !favorite ? 1 : 0 }));
     setFavorite(!favorite);
-  }
+  };
 
   return (
     <article className="cities__card place-card">
@@ -43,7 +43,8 @@ function OfferCard({ id, price, title, type, rating, previewImage, isPremium = f
           <button
             className={`place-card__bookmark-button place-card__bookmark-button${favorite ? '--active' : ''} button`}
             type="button"
-            onClick={onClickFavorite}>
+            onClick={onClickFavorite}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

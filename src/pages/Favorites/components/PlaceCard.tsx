@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 import { OfferType } from '../../../types/OffersType.ts';
-import { useState } from "react";
-import { useAppDispatch } from "../../../hooks/useAppDispatch.ts";
-import { changeIsFavorite } from "../../../store/apiActions.ts";
+import { useState } from 'react';
+import { useAppDispatch } from '../../../hooks/useAppDispatch.ts';
+import { changeIsFavorite } from '../../../store/apiActions.ts';
 
 function PlaceCard({ id, price, title, type, rating, previewImage, isPremium = false }: OfferType) {
-  const [favorite, setFavorite] = useState(true)
+  const [favorite, setFavorite] = useState(true);
 
   const dispatch = useAppDispatch();
 
   const onClickFavorite = () => {
     dispatch(changeIsFavorite({ id, status: !favorite ? 1 : 0 }));
     setFavorite(!favorite);
-  }
+  };
   return (
     <article className="favorites__card place-card">
       {isPremium &&
@@ -22,7 +22,7 @@ function PlaceCard({ id, price, title, type, rating, previewImage, isPremium = f
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="150" height="110"
-               alt="Place image"
+            alt="Place image"
           />
         </Link>
       </div>

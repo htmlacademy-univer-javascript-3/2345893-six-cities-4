@@ -1,5 +1,5 @@
 import { withHistory } from '../../utils/mockComponent';
-import Page404 from "./index.tsx";
+import Page404 from './index.tsx';
 import { render, screen } from '@testing-library/react';
 
 describe('Component: Page404', () => {

@@ -2,7 +2,7 @@ import PlaceCard from './components/PlaceCard';
 import { useAppSelector } from '../../hooks/useAppSelector.tsx';
 import { groupBy } from '../../helpers/groupBy.ts';
 import { Link } from 'react-router-dom';
-import { getOffers } from "../../store/offersProcess/selectors.ts";
+import { getOffers } from '../../store/offersProcess/selectors.ts';
 
 function Favorites() {
   const offers = useAppSelector(getOffers);

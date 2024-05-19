@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../../hooks/useAppSelector.tsx';
 import { useAppDispatch } from '../../../hooks/useAppDispatch.ts';
-import { getCities, getCurCity } from "../../../store/citiesProcess/selectors.ts";
-import { setCity } from "../../../store/citiesProcess/citiesProcess.ts";
+import { getCities, getCurCity } from '../../../store/citiesProcess/selectors.ts';
+import { setCity } from '../../../store/citiesProcess/citiesProcess.ts';
 
 const LocationTabs = () => {
   const city = useAppSelector(getCurCity);

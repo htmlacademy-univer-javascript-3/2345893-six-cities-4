@@ -1,9 +1,9 @@
 import { store } from '../store';
-import { AuthorizationStatus } from "../const.ts";
-import { OffersType } from "./OffersType.ts";
-import type { City } from "./City.ts";
-import { Reviews } from "./Review.ts";
-import { OfferInfoType } from "./OfferInfoType.ts";
+import { AuthorizationStatus } from '../const.ts';
+import { OffersType } from './OffersType.ts';
+import type { City } from './City.ts';
+import { Reviews } from './Review.ts';
+import { OfferInfoType } from './OfferInfoType.ts';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;

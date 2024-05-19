@@ -3,11 +3,11 @@ import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '../services/api';
 import { State } from '../types/state';
-import { AuthorizationStatus } from "../const.ts";
-import { initialCity } from "../store/citiesProcess/citiesProcess.ts";
-import { Reviews } from "../types/Review.ts";
-import { OffersType } from "../types/OffersType.ts";
-import { OfferInfoType } from "../types/OfferInfoType.ts";
+import { AuthorizationStatus } from '../const.ts';
+import { initialCity } from '../store/citiesProcess/citiesProcess.ts';
+import { Reviews } from '../types/Review.ts';
+import { OffersType } from '../types/OffersType.ts';
+import { OfferInfoType } from '../types/OfferInfoType.ts';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -25,7 +25,8 @@ export const makeFakeReviews = (): Reviews => (new Array(3).fill(null).map(() =>
   })
 ) as Reviews);
 
-export const makeFakeOffers = (): OffersType => (new Array(3).fill(null).map(() => ({
+export const makeFakeOffers = (): OffersType => (new Array(3).fill(null).map(() =>
+  ({
     id: helpers.slugify(),
     title: lorem.sentence(),
     type: lorem.word(),
@@ -50,7 +51,7 @@ export const makeFakeOffers = (): OffersType => (new Array(3).fill(null).map(() 
   })
 ) as unknown as OffersType);
 
-export const makeFakeOfferInfo = (): OfferInfoType | undefined => ({
+export const makeFakeOfferInfo = (): OfferInfoType => ({
   id: helpers.slugify(),
   title: lorem.sentence(),
   type: lorem.word(),

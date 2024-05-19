@@ -4,7 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/apiActions.ts';
-import HistoryRouter from "./components/HistoryRoute/HistoryRoute.tsx";
+import HistoryRouter from './components/HistoryRoute/HistoryRoute.tsx';
 import browserHistory from './browserHistory';
 
 const root = ReactDOM.createRoot(

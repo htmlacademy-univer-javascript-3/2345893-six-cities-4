@@ -7,6 +7,7 @@ describe('UserProcess Slice', () => {
     const emptyAction = { type: '' };
     const expectedState = { authorizationStatus: AuthorizationStatus.Auth };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(expectedState, emptyAction);
 
@@ -17,6 +18,7 @@ describe('UserProcess Slice', () => {
     const emptyAction = { type: '' };
     const expectedState = { authorizationStatus: AuthorizationStatus.Unknown };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(undefined, emptyAction);
 
@@ -27,6 +29,7 @@ describe('UserProcess Slice', () => {
     const initialState = { authorizationStatus: AuthorizationStatus.NoAuth };
     const expectedState = { authorizationStatus: AuthorizationStatus.Auth };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(initialState, checkAuthAction.fulfilled);
 
@@ -37,6 +40,7 @@ describe('UserProcess Slice', () => {
     const initialState = { authorizationStatus: AuthorizationStatus.Auth };
     const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(initialState, checkAuthAction.rejected);
 
@@ -47,6 +51,7 @@ describe('UserProcess Slice', () => {
     const initialState = { authorizationStatus: AuthorizationStatus.NoAuth };
     const expectedState = { authorizationStatus: AuthorizationStatus.Auth };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(initialState, loginAction.fulfilled);
 
@@ -57,6 +62,7 @@ describe('UserProcess Slice', () => {
     const initialState = { authorizationStatus: AuthorizationStatus.Auth };
     const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(initialState, loginAction.rejected);
 
@@ -67,6 +73,7 @@ describe('UserProcess Slice', () => {
     const initialState = { authorizationStatus: AuthorizationStatus.Auth };
     const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = userProcess.reducer(initialState, logoutAction.fulfilled);
 

@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { getOffersNearby, getOffersNearbyLoading } from './selectors';
-import { makeFakeOffers } from "../../utils/mocks.ts";
+import { makeFakeOffers } from '../../utils/mocks.ts';
 
 describe('OffersNearbyProcess selectors', () => {
   const mockOffers = makeFakeOffers();
@@ -9,7 +9,7 @@ describe('OffersNearbyProcess selectors', () => {
       offers: mockOffers,
       loading: true
     }
-  }
+  };
 
   it('should return offers from state', () => {
     const { offers } = state[NameSpace.OffersNearby];

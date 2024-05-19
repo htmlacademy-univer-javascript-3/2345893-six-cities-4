@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks/useAppSelector.tsx';
 import { sortOffersByPrice } from '../../helpers/sortOffersByPrice.ts';
 import { sortOffersByRating } from '../../helpers/sortOffersByRating.ts';
 import Loader from '../../components/Loader.tsx';
-import { getOffers, getOffersIsLoading } from "../../store/offersProcess/selectors.ts";
+import { getOffers, getOffersIsLoading } from '../../store/offersProcess/selectors.ts';
 import { getCurCity } from '../../store/citiesProcess/selectors.ts';
 
 function Main() {
@@ -23,7 +23,7 @@ function Main() {
     TOP_RATED = 'Top rated first'
   }
 
-  const [offersSort, setOffersSort] = useState<offersSortEnum>(offersSortEnum.POPULAR)
+  const [offersSort, setOffersSort] = useState<offersSortEnum>(offersSortEnum.POPULAR);
 
   const offersByCity = React.useMemo(() => offers.filter((offer) => offer.city.name === city.title),
     [city.title, offers]);
@@ -39,9 +39,9 @@ function Main() {
       case offersSortEnum.TOP_RATED:
         return sortOffersByRating(offersByCity);
       default:
-        return offersByCity
+        return offersByCity;
     }
-  }, [offersByCity, offersSort])
+  }, [offersByCity, offersSort]);
 
 
   const points = offersByCity.map((offer) => ({

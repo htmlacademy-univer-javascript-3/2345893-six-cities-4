@@ -9,9 +9,9 @@ import Page404 from './pages/404';
 import Offer from './pages/Offer';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.tsx';
 import Layout from './pages/Layout.tsx';
-import { HelmetProvider } from "react-helmet-async";
-import { useAppSelector } from "./hooks/useAppSelector.tsx";
-import { getAuthorizationStatus } from "./store/userProcess/selectors.ts";
+import { HelmetProvider } from 'react-helmet-async';
+import { useAppSelector } from './hooks/useAppSelector.tsx';
+import { getAuthorizationStatus } from './store/userProcess/selectors.ts';
 
 function App() {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
