@@ -1,6 +1,4 @@
-import { name, internet, date, random, lorem, helpers, commerce, address, image } from 'faker';
-// import {AuthorizationStatus, GameType} from '../const';
-// import {QuestionArtist, QuestionGenre} from '../types/question';
+import { name, internet, date, random, lorem, helpers, address, image } from 'faker';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '../services/api';
