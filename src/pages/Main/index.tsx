@@ -8,11 +8,13 @@ import { useAppSelector } from '../../hooks/useAppSelector.tsx';
 import { sortOffersByPrice } from '../../helpers/sortOffersByPrice.ts';
 import { sortOffersByRating } from '../../helpers/sortOffersByRating.ts';
 import Loader from '../../components/Loader.tsx';
+import { getOffers, getOffersIsLoading } from "../../store/offersProcess/selectors.ts";
+import { getCurCity } from "../../store/citiesProcess/selectors.ts";
 
 function Main() {
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const isLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const city = useAppSelector(getCurCity);
+  const offers = useAppSelector(getOffers);
+  const isLoading = useAppSelector(getOffersIsLoading);
 
   const offersByCity = React.useMemo(() => offers.filter((offer) => offer.city.name === city.title),
     [city.title, offers]);

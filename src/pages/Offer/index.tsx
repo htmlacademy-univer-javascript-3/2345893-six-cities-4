@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CommentForm from './components/CommentForm.tsx';
 import ReviewsList from './components/Reviews/ReviewsList.tsx';
 import NearOffers from './components/NearOffers.tsx';
@@ -7,10 +7,16 @@ import Loader from '../../components/Loader.tsx';
 import Page404 from '../404';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import { changeIsFavorite, fetchOfferInfoAction, fetchOffersNearby, fetchReviews } from '../../store/apiActions.ts';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { City } from '../../types/City.ts';
 import Map from '../../components/Map.tsx';
-import { AuthorizationStatus } from '../../const.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
+import { getOfferInfo, getOfferInfoIsLoading } from "../../store/offerInfoProcess/selectors.ts";
+import { getOffersNearby, getOffersNearbyLoading } from "../../store/offersNearbyProcess/selectors.ts";
+import { getReviews, getReviewsIsLoading } from "../../store/reviewsProcess/selectors.ts";
+import { getAuthorizationStatus } from "../../store/userProcess/selectors.ts";
+import { updateOfferInfo } from "../../store/offerInfoProcess/offerInfoProcess.ts";
+import { redirectToRoute } from "../../store/action.ts";
 
 
 function Offer() {
@@ -19,26 +25,26 @@ function Offer() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOfferInfoAction(params.id ?? 'none'));
-    dispatch(fetchOffersNearby(params.id ?? 'none'));
     dispatch(fetchReviews(params.id ?? 'none'));
+    dispatch(fetchOffersNearby(params.id ?? 'none'));
   }, [dispatch, params.id]);
 
+  const isLoadingOfferInfo = useAppSelector(getOfferInfoIsLoading);
+  const isLoadingOffersNearby = useAppSelector(getOffersNearbyLoading);
+  const isLoadingReviews = useAppSelector(getReviewsIsLoading);
+  const isLoading = isLoadingOfferInfo || isLoadingOffersNearby || isLoadingReviews;
 
-  const isLoadingInfo = useAppSelector((state) => state.isLoadingOfferInfo);
+  const offer = useAppSelector(getOfferInfo);
+  const nearOffers = useAppSelector(getOffersNearby);
 
-  const isLoading = useAppSelector((state) => state.isOffersDataLoading || state.isLoadingOffersNearby || state.reviewsLoading);
-
-  const offer = useAppSelector((state) => state.selectedOffer);
-  const nearOffers = useAppSelector((state) => state.offersNearby);
-
-  const reviews = useAppSelector((state) => state.reviews);
-  const hasAccess = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector(getReviews);
+  const hasAccess = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   const city: City = {
-    title: offer?.city.name ?? '',
-    lat: offer?.city.location.latitude ?? 0,
-    lng: offer?.city.location.longitude ?? 0,
-    zoom: offer?.city.location.zoom ?? 0
+    title: offer?.city?.name ?? '',
+    lat: offer?.city?.location.latitude ?? 0,
+    lng: offer?.city?.location.longitude ?? 0,
+    zoom: offer?.city?.location.zoom ?? 0
   };
 
   if (!offer && !isLoading) {
@@ -52,21 +58,19 @@ function Offer() {
     lng: offerItem.location.longitude
   }));
 
-  const navigate = useNavigate();
-
-  const [favorite, setFavorite] = useState(offer?.isFavorite)
-
   const onClickFavorite = () => {
-    if (hasAccess !== AuthorizationStatus.Auth) {
-      navigate('/login');
+    if (!hasAccess) {
+      dispatch(redirectToRoute(AppRoute.Login))
     }
-    dispatch(changeIsFavorite({ id: offer?.id ?? '', status: !favorite ? 1 : 0 }));
-    setFavorite(!favorite);
+    if (offer) {
+      dispatch(changeIsFavorite({ id: offer?.id ?? '', status: !offer.isFavorite ? 1 : 0 }));
+      dispatch(updateOfferInfo({ ...offer, isFavorite: !offer.isFavorite }));
+    }
   }
 
   return (
     <main className="page__main page__main--offer">
-      {isLoadingInfo || !offer ?
+      {isLoadingOfferInfo || !offer ?
         <Loader/> :
         <>
           <section className="offer">
@@ -91,7 +95,7 @@ function Offer() {
                     {offer.title}
                   </h1>
                   <button
-                    className={`offer__bookmark-button offer__bookmark-button${favorite ? '--active' : ''} button`}
+                    className={`offer__bookmark-button offer__bookmark-button${offer.isFavorite ? '--active' : ''} button`}
                     type="button"
                     onClick={onClickFavorite}
                   >
@@ -138,7 +142,7 @@ function Offer() {
                   <div className="offer__host-user user">
                     <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                       <img className="offer__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74"
-                        alt="Host avatar"
+                           alt="Host avatar"
                       />
                     </div>
                     <span className="offer__user-name">{offer.host.name}</span>
@@ -152,8 +156,8 @@ function Offer() {
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <ReviewsList reviews={reviews}/>
-                  {hasAccess === AuthorizationStatus.Auth &&
+                  {isLoadingReviews ? <Loader/> : <ReviewsList reviews={reviews}/>}
+                  {hasAccess &&
                     <CommentForm id={offer.id}/>}
                 </section>
               </div>

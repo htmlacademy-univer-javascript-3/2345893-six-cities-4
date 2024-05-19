@@ -2,9 +2,10 @@ import PlaceCard from './components/PlaceCard';
 import { useAppSelector } from '../../hooks/useAppSelector.tsx';
 import { groupBy } from '../../helpers/groupBy.ts';
 import { Link } from 'react-router-dom';
+import { getOffers } from "../../store/offersProcess/selectors.ts";
 
 function Favorites() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const favorites = groupBy(offers.filter((offer) => offer.isFavorite), (offer) => offer.city.name);
 
   const cities = Object.keys(favorites);

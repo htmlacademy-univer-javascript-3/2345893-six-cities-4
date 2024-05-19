@@ -1,6 +1,5 @@
 import Main from './pages/Main';
 import {
-  BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
@@ -8,12 +7,17 @@ import Login from './pages/Login';
 import Favorites from './pages/Favorites';
 import Page404 from './pages/404';
 import Offer from './pages/Offer';
-import PrivateRoute from './components/PrivateRoute.tsx';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.tsx';
 import Layout from './pages/Layout.tsx';
+import { HelmetProvider } from "react-helmet-async";
+import { useAppSelector } from "./hooks/useAppSelector.tsx";
+import { getAuthorizationStatus } from "./store/userProcess/selectors.ts";
 
 function App() {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   return (
-    <BrowserRouter>
+    <HelmetProvider>
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Main/>}/>
@@ -22,7 +26,7 @@ function App() {
             <Route path=":id" element={<Offer/>}/>
           </Route>
           <Route path="/favorites" element={
-            <PrivateRoute>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites/>
             </PrivateRoute>
           }
@@ -30,7 +34,7 @@ function App() {
           <Route path="*" element={<Page404/>}/>
         </Route>
       </Routes>
-    </BrowserRouter>);
+    </HelmetProvider>);
 }
 
 export default App;

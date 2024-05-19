@@ -1,11 +1,12 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector.tsx';
-import { AuthorizationStatus } from '../const.ts';
 import { useAppDispatch } from '../hooks/useAppDispatch.ts';
 import { logoutAction } from '../store/apiActions.ts';
+import { getAuthorizationStatus } from "../store/userProcess/selectors.ts";
+import { AuthorizationStatus } from "../const.ts";
 
 function Header() {
-  const isLoggedIn = useAppSelector((state) => state.authorizationStatus);
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   const dispatch = useAppDispatch();
 
@@ -24,7 +25,7 @@ function Header() {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              {isLoggedIn === AuthorizationStatus.Auth ?
+              {isLoggedIn ?
                 <>
                   <li className="header__nav-item user">
                     <a className="header__nav-link header__nav-link--profile" href="#">

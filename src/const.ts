@@ -17,3 +17,12 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  OfferInfo = 'OFFER_INFO',
+  OffersNearby = 'OFFERS_NEARBY',
+  User = 'USER',
+  Cities = 'CITIES',
+  Reviews = 'REVIEWS'
+}
