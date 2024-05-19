@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OfferInfoProcess } from '../../types/state';
 import { fetchOfferInfoAction } from '../apiActions';
-import { OfferInfoType } from "../../types/OfferInfoType.ts";
+import { OfferInfoType } from '../../types/OfferInfoType.ts';
 
 const initialState: OfferInfoProcess = {
   offer: undefined,

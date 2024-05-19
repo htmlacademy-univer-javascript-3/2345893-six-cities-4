@@ -1,14 +1,13 @@
-import { name, internet, date, random, lorem, helpers, commerce, address, image } from 'faker';
-// import {AuthorizationStatus, GameType} from '../const';
-// import {QuestionArtist, QuestionGenre} from '../types/question';
+import { name, internet, date, random, lorem, helpers, address, image } from 'faker';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '../services/api';
 import { State } from '../types/state';
-import { AuthorizationStatus } from "../const.ts";
-import { initialCity } from "../store/citiesProcess/citiesProcess.ts";
-import { Reviews } from "../types/Review.ts";
-import { OffersType } from "../types/OffersType.ts";
+import { AuthorizationStatus } from '../const.ts';
+import { initialCity } from '../store/citiesProcess/citiesProcess.ts';
+import { Reviews } from '../types/Review.ts';
+import { OffersType } from '../types/OffersType.ts';
+import { OfferInfoType } from '../types/OfferInfoType.ts';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -31,7 +30,7 @@ export const makeFakeOffers = (): OffersType => (new Array(3).fill(null).map(() 
     id: helpers.slugify(),
     title: lorem.sentence(),
     type: lorem.word(),
-    price: commerce.price(),
+    price: random.number({ min: 1 }),
     city: {
       name: address.cityName(),
       location: {
@@ -52,15 +51,39 @@ export const makeFakeOffers = (): OffersType => (new Array(3).fill(null).map(() 
   })
 ) as unknown as OffersType);
 
+export const makeFakeOfferInfo = (): OfferInfoType => ({
+  id: helpers.slugify(),
+  title: lorem.sentence(),
+  type: lorem.word(),
+  price: random.number({ min: 1 }),
+  city: {
+    name: address.cityName(),
+    location: {
+      latitude: Number(address.latitude()),
+      longitude: Number(address.longitude()),
+      zoom: 13,
+    },
+  },
+  location: {
+    latitude: Number(address.latitude()),
+    longitude: Number(address.longitude()),
+    zoom: 13,
+  },
+  isFavorite: random.boolean(),
+  isPremium: random.boolean(),
+  rating: random.number({ min: 0, max: 5 }),
+  description: lorem.sentence(),
+  bedrooms: random.number({ min: 0, max: 5 }),
+  goods: new Array(3).fill(null).map(() => lorem.paragraph()),
+  host: {
+    name: name.title(),
+    avatarUrl: image.imageUrl(),
+    isPro: random.boolean(),
+  },
+  images: new Array(3).fill(null).map(() => image.imageUrl()),
+  maxAdults: random.number({ min: 0, max: 5 }),
+} as OfferInfoType);
 
-//
-// export const makeFakeGenreQuestion = (): QuestionGenre => ({
-//   type: GameType.Genre,
-//   genre: music.genre(),
-//   answers: new Array(4).fill(null).map(() => (
-//     { src: system.filePath(), genre: music.genre() }),
-//   ),
-// } as QuestionGenre);
 
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 

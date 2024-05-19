@@ -11,6 +11,7 @@ export const createAPI = (): AxiosInstance => {
   });
 
   api.interceptors.request.use(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     (config: AxiosRequestConfig) => {
       const token = getToken();

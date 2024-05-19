@@ -2,8 +2,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector.tsx';
 import { useAppDispatch } from '../hooks/useAppDispatch.ts';
 import { logoutAction } from '../store/apiActions.ts';
-import { getAuthorizationStatus } from "../store/userProcess/selectors.ts";
-import { AuthorizationStatus } from "../const.ts";
+import { getAuthorizationStatus } from '../store/userProcess/selectors.ts';
+import { AuthorizationStatus } from '../const.ts';
 
 function Header() {
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;

@@ -11,12 +11,12 @@ import { useEffect } from 'react';
 import { City } from '../../types/City.ts';
 import Map from '../../components/Map.tsx';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { getOfferInfo, getOfferInfoIsLoading } from "../../store/offerInfoProcess/selectors.ts";
-import { getOffersNearby, getOffersNearbyLoading } from "../../store/offersNearbyProcess/selectors.ts";
-import { getReviews, getReviewsIsLoading } from "../../store/reviewsProcess/selectors.ts";
-import { getAuthorizationStatus } from "../../store/userProcess/selectors.ts";
-import { updateOfferInfo } from "../../store/offerInfoProcess/offerInfoProcess.ts";
-import { redirectToRoute } from "../../store/action.ts";
+import { getOfferInfo, getOfferInfoIsLoading } from '../../store/offerInfoProcess/selectors.ts';
+import { getOffersNearby, getOffersNearbyLoading } from '../../store/offersNearbyProcess/selectors.ts';
+import { getReviews, getReviewsIsLoading } from '../../store/reviewsProcess/selectors.ts';
+import { getAuthorizationStatus } from '../../store/userProcess/selectors.ts';
+import { updateOfferInfo } from '../../store/offerInfoProcess/offerInfoProcess.ts';
+import { redirectToRoute } from '../../store/action.ts';
 
 
 function Offer() {
@@ -60,13 +60,13 @@ function Offer() {
 
   const onClickFavorite = () => {
     if (!hasAccess) {
-      dispatch(redirectToRoute(AppRoute.Login))
+      dispatch(redirectToRoute(AppRoute.Login));
     }
     if (offer) {
       dispatch(changeIsFavorite({ id: offer?.id ?? '', status: !offer.isFavorite ? 1 : 0 }));
       dispatch(updateOfferInfo({ ...offer, isFavorite: !offer.isFavorite }));
     }
-  }
+  };
 
   return (
     <main className="page__main page__main--offer">
@@ -142,7 +142,7 @@ function Offer() {
                   <div className="offer__host-user user">
                     <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                       <img className="offer__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74"
-                           alt="Host avatar"
+                        alt="Host avatar"
                       />
                     </div>
                     <span className="offer__user-name">{offer.host.name}</span>

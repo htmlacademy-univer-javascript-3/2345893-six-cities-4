@@ -39,7 +39,7 @@ function CommentForm({ id }: { id: string }) {
         </label>
 
         <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars"
-               type="radio" onClick={() => setRating(3)}
+          type="radio" onClick={() => setRating(3)}
         />
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
@@ -48,7 +48,7 @@ function CommentForm({ id }: { id: string }) {
         </label>
 
         <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars"
-               type="radio" onClick={() => setRating(2)}
+          type="radio" onClick={() => setRating(2)}
         />
         <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
           <svg className="form__star-image" width="37" height="33">
@@ -57,10 +57,10 @@ function CommentForm({ id }: { id: string }) {
         </label>
 
         <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star"
-               type="radio" onClick={() => setRating(1)}
+          type="radio" onClick={() => setRating(1)}
         />
         <label htmlFor="1-star" className="reviews__rating-label form__rating-label"
-               title="terribly"
+          title="terribly"
         >
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
@@ -68,8 +68,8 @@ function CommentForm({ id }: { id: string }) {
         </label>
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
-                placeholder="Tell how was your stay, what you like and what can be improved" minLength={50}
-                value={text} onChange={(event) => setText(event.target.value)}
+        placeholder="Tell how was your stay, what you like and what can be improved" minLength={50}
+        value={text} onChange={(event) => setText(event.target.value)}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

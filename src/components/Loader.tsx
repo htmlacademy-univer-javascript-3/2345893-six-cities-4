@@ -1,8 +1,8 @@
-import { ColorRing } from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner';
 
 function Loader(): JSX.Element {
   return (
-    <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
+    <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
       <ColorRing
         visible
         height="80"

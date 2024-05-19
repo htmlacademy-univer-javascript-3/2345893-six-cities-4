@@ -2,7 +2,7 @@ import { makeFakeOffers } from '../../utils/mocks';
 import { fetchOffersAction } from '../apiActions';
 import { offersProcess } from './offersProcess';
 
-describe('GameData Slice', () => {
+describe('OffersProcess Slice', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };
     const expectedState = {

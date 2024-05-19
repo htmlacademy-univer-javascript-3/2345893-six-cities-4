@@ -5,7 +5,7 @@ import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import { State } from '../types/state';
 import { createAPI } from '../services/api';
-import thunk from 'redux-thunk';
+import { withExtraArgument } from 'redux-thunk';
 import { Action } from 'redux';
 import { AppThunkDispatch } from './mocks';
 import { Provider } from 'react-redux';
@@ -34,7 +34,7 @@ export function withStore(
 ): ComponentWithMockStore {
   const axios = createAPI();
   const mockAxiosAdapter = new MockAdapter(axios);
-  const middleware = [thunk.withExtraArgument(axios)];
+  const middleware = [withExtraArgument(axios)];
   const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
   const mockStore = mockStoreCreator(initialState);
 

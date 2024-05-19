@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { CitiesProcess } from '../../types/state';
 import { fetchOffersAction } from '../apiActions';
-import { City } from "../../types/City.ts";
+import { City } from '../../types/City.ts';
 
 export const initialCity = {
   title: 'Paris',
@@ -21,7 +21,7 @@ export const citiesProcess = createSlice({
   initialState,
   reducers: {
     setCity: (state, action: PayloadAction<City>) => {
-      state.city = action.payload
+      state.city = action.payload;
     }
   },
   extraReducers(builder) {

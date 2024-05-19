@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { getReviews, getReviewsIsLoading } from './selectors';
-import { makeFakeReviews } from "../../utils/mocks.ts";
+import { makeFakeReviews } from '../../utils/mocks.ts';
 
 describe('ReviewsProcess selectors', () => {
   const mockReviews = makeFakeReviews();
@@ -9,7 +9,7 @@ describe('ReviewsProcess selectors', () => {
       reviews: mockReviews,
       loading: true
     }
-  }
+  };
 
   it('should return reviews from state', () => {
     const { reviews } = state[NameSpace.Reviews];

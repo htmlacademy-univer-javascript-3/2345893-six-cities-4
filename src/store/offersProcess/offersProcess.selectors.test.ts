@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { getOffers, getOffersIsLoading, getOffersHasError } from './selectors';
-import { makeFakeOffers } from "../../utils/mocks.ts";
+import { makeFakeOffers } from '../../utils/mocks.ts';
 
 describe('OffersProcess selectors', () => {
   const mockOffers = makeFakeOffers();
@@ -10,7 +10,7 @@ describe('OffersProcess selectors', () => {
       loading: true,
       hasError: false,
     }
-  }
+  };
 
   it('should return offers from state', () => {
     const { offers } = state[NameSpace.Offers];
