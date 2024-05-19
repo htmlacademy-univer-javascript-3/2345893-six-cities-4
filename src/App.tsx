@@ -7,11 +7,15 @@ import Login from './pages/Login';
 import Favorites from './pages/Favorites';
 import Page404 from './pages/404';
 import Offer from './pages/Offer';
-import PrivateRoute from './components/PrivateRoute.tsx';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.tsx';
 import Layout from './pages/Layout.tsx';
 import { HelmetProvider } from "react-helmet-async";
+import { useAppSelector } from "./hooks/useAppSelector.tsx";
+import { getAuthorizationStatus } from "./store/userProcess/selectors.ts";
 
 function App() {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   return (
     <HelmetProvider>
       <Routes>
@@ -22,7 +26,7 @@ function App() {
             <Route path=":id" element={<Offer/>}/>
           </Route>
           <Route path="/favorites" element={
-            <PrivateRoute>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites/>
             </PrivateRoute>
           }
